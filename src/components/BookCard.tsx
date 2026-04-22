@@ -13,6 +13,7 @@ import { useAppDispatch } from "../store/hooks";
 import { deleteBook } from "../store/bookSlice";
 import { useDisclosure } from "@mantine/hooks";
 import { EditBookModal } from "./EditBookModal";
+import { modals } from "@mantine/modals";
 
 interface BookCardProps {
  book: Book;
@@ -30,6 +31,21 @@ export function BookCard({ book }: BookCardProps) {
   finished: "green",
  };
 
+ const openDeleteModal = () =>
+  modals.openConfirmModal({
+   title: "Выдаліць кнігу?",
+   centered: true,
+   children: (
+    <Text size="sm">
+     Вы сапраўды хочаце выдаліць кнігу <b>«{book.title}»</b>? Гэта дзеянне
+     немагчыма будзе адмяніць.
+    </Text>
+   ),
+   labels: { confirm: "Так, выдаліць", cancel: "Адмена" },
+   confirmProps: { color: "red" },
+   onConfirm: () => dispatch(deleteBook(book.id)),
+  });
+
  return (
   <>
    <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -42,11 +58,7 @@ export function BookCard({ book }: BookCardProps) {
        <ActionIcon variant="subtle" color="black" onClick={openEdit}>
         <IconEdit size={18} />
        </ActionIcon>
-       <ActionIcon
-        variant="subtle"
-        color="red"
-        onClick={() => dispatch(deleteBook(book.id))}
-       >
+       <ActionIcon variant="subtle" color="red" onClick={openDeleteModal}>
         <IconTrash size={18} />
        </ActionIcon>
       </Group>
@@ -69,11 +81,8 @@ export function BookCard({ book }: BookCardProps) {
      </Group>
     </Stack>
 
-    <Group
-     mt="md"
-     c="blue"
-    >
-     <IconBook size={14} /> 
+    <Group mt="md" c="blue">
+     <IconBook size={14} />
      <Text>Цытат: {book.quotes.length}</Text>
     </Group>
    </Card>
