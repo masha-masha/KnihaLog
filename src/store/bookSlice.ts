@@ -5,8 +5,21 @@ interface BookState {
     books: Book[];
 }
 
+
+
+const loadBooksFromStorage = (): Book[] => {
+    try {
+        const savedBooks = localStorage.getItem('my-books');
+        if (savedBooks === null) return [];
+        return JSON.parse(savedBooks);
+    } catch (e) {
+        console.error("Не ўдалося загрузіць кнiгi:", e);
+        return [];
+    }
+};
+
 const initialState: BookState = {
-    books: [],
+    books: loadBooksFromStorage()
 };
 
 const bookSlice = createSlice({
