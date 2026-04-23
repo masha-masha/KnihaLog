@@ -7,13 +7,21 @@ import {
  ActionIcon,
  Stack,
 } from "@mantine/core";
-import { IconTrash, IconBook, IconEdit } from "@tabler/icons-react";
+import {
+ IconTrash,
+ IconBook,
+ IconEdit,
+ IconPlus,
+ IconEye,
+} from "@tabler/icons-react";
 import type { Book } from "../types/book";
 import { useAppDispatch } from "../store/hooks";
 import { deleteBook } from "../store/bookSlice";
 import { useDisclosure } from "@mantine/hooks";
 import { EditBookModal } from "./EditBookModal";
 import { modals } from "@mantine/modals";
+import { AddQuoteModal } from "./AddQuoteModal";
+import { ViewQuotesModal } from "./ViewQuotesModal";
 
 interface BookCardProps {
  book: Book;
@@ -23,6 +31,10 @@ export function BookCard({ book }: BookCardProps) {
  const dispatch = useAppDispatch();
 
  const [editOpened, { open: openEdit, close: closeEdit }] =
+  useDisclosure(false);
+ const [addQuoteOpened, { open: openAddQuote, close: closeAddQuote }] =
+  useDisclosure(false);
+ const [viewQuotesOpened, { open: openViewQuotes, close: closeViewQuotes }] =
   useDisclosure(false);
 
  const statusColors = {
@@ -54,7 +66,7 @@ export function BookCard({ book }: BookCardProps) {
       <Badge color={statusColors[book.status]} variant="light">
        {book.status}
       </Badge>
-      <Group>
+      <Group justify="space-between">
        <ActionIcon variant="subtle" color="black" onClick={openEdit}>
         <IconEdit size={18} />
        </ActionIcon>
@@ -73,20 +85,59 @@ export function BookCard({ book }: BookCardProps) {
       {book.author}
      </Text>
 
-     <Group justify="space-between" align="center" mt="md">
+     <Group justify="space-between" align="center" mt="md" pr="5px">
       <Rating value={book.rating} readOnly />
-      <Text size="md" ta="center"c="dimmed">
+      <Text size="md" ta="center" c="dimmed">
        {book.language.toUpperCase()}
       </Text>
      </Group>
     </Stack>
 
-    <Group mt="md" c="blue">
-     <IconBook size={14} />
-     <Text>Цытат: {book.quotes.length}</Text>
+    <Group mt="md" c="blue" justify="space-between" pr="5px">
+     <Group
+      onClick={openViewQuotes}
+      style={{ cursor: "pointer" }}
+      title="Глядзець цытаты"
+     >
+      <IconBook size={14} />
+      <Text size="sm" fw={500}>
+       Цытат: {book.quotes.length}
+      </Text>
+     </Group>
+
+     <Group>
+      <ActionIcon
+       variant="subtle"
+       color="blue"
+       onClick={openViewQuotes}
+       title="Глядзець цытаты"
+      >
+       <IconEye size={18} />
+      </ActionIcon>
+      <ActionIcon
+       variant="subtle"
+       color="blue"
+       onClick={openAddQuote}
+       title="Дадаць цытату"
+      >
+       <IconPlus size={18} />
+      </ActionIcon>
+     </Group>
     </Group>
    </Card>
+
+   
    <EditBookModal opened={editOpened} onClose={closeEdit} book={book} />
+   <AddQuoteModal
+    opened={addQuoteOpened}
+    onClose={closeAddQuote}
+    bookId={book.id}
+   />
+   <ViewQuotesModal
+    opened={viewQuotesOpened}
+    onClose={closeViewQuotes}
+    book={book}
+   />
   </>
  );
 }
