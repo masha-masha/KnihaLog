@@ -73,9 +73,9 @@ export function BookCard({ book }: BookCardProps) {
       {book.author}
      </Text>
 
-     <Group justify="space-between" mt="md">
+     <Group justify="space-between" align="center" mt="md">
       <Rating value={book.rating} readOnly />
-      <Text size="xs" c="dimmed">
+      <Text size="md" ta="center"c="dimmed">
        {book.language.toUpperCase()}
       </Text>
      </Group>

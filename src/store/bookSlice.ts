@@ -1,8 +1,11 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { Book } from '../types/book';
 
+export type BooksFilter = "all" | "finished" | "planned" | "reading";
+
 interface BookState {
     books: Book[];
+    filter: BooksFilter
 }
 
 
@@ -19,7 +22,8 @@ const loadBooksFromStorage = (): Book[] => {
 };
 
 const initialState: BookState = {
-    books: loadBooksFromStorage()
+    books: loadBooksFromStorage(),
+    filter: "all"
 };
 
 const bookSlice = createSlice({
@@ -53,10 +57,13 @@ const bookSlice = createSlice({
                 state.books[index] = action.payload;
             }
         },
+         setFilter: (state, action: PayloadAction<BooksFilter>) => {
+            state.filter = action.payload;
+        },
     }
 
 });
 
-export const { addBook, updateBook, addQuote, deleteBook } = bookSlice.actions;
+export const { addBook, updateBook, addQuote, deleteBook, setFilter } = bookSlice.actions;
 export default bookSlice.reducer;
 
