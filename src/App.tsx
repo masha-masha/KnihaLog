@@ -14,6 +14,7 @@ import { useAppSelector } from "./store/hooks";
 import { BookCard } from "./components/BookCard";
 import { AddBookModal } from "./components/AddBookModal";
 import { Footer } from "./components/Footer";
+import Header from "./components/Header";
 
 export default function App() {
  const [opened, { open, close }] = useDisclosure(false);
@@ -21,6 +22,7 @@ export default function App() {
 
  return (
   <Flex direction="column" mih="100vh">
+   <Header/>
    <Container size="md" py="xl" flex={1} >
     <Stack gap="xl">
      <Group justify="space-between">
