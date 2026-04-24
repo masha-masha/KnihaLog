@@ -14,6 +14,7 @@ import {
  IconPlus,
  IconEye,
 } from "@tabler/icons-react";
+import { useTranslation } from "react-i18next"; 
 import type { Book } from "../types/book";
 import { useAppDispatch } from "../store/hooks";
 import { deleteBook } from "../store/bookSlice";
@@ -28,14 +29,12 @@ interface BookCardProps {
 }
 
 export function BookCard({ book }: BookCardProps) {
+ const { t } = useTranslation(); 
  const dispatch = useAppDispatch();
 
- const [editOpened, { open: openEdit, close: closeEdit }] =
-  useDisclosure(false);
- const [addQuoteOpened, { open: openAddQuote, close: closeAddQuote }] =
-  useDisclosure(false);
- const [viewQuotesOpened, { open: openViewQuotes, close: closeViewQuotes }] =
-  useDisclosure(false);
+ const [editOpened, { open: openEdit, close: closeEdit }] = useDisclosure(false);
+ const [addQuoteOpened, { open: openAddQuote, close: closeAddQuote }] = useDisclosure(false);
+ const [viewQuotesOpened, { open: openViewQuotes, close: closeViewQuotes }] = useDisclosure(false);
 
  const statusColors = {
   planned: "gray",
@@ -45,15 +44,14 @@ export function BookCard({ book }: BookCardProps) {
 
  const openDeleteModal = () =>
   modals.openConfirmModal({
-   title: "Выдаліць кнігу?",
+   title: t('deleteModalTitle'), 
    centered: true,
    children: (
     <Text size="sm">
-     Вы сапраўды хочаце выдаліць кнігу <b>«{book.title}»</b>? Гэта дзеянне
-     немагчыма будзе адмяніць.
+     {t('deleteModalText', { title: book.title })} 
     </Text>
    ),
-   labels: { confirm: "Так, выдаліць", cancel: "Адмена" },
+   labels: { confirm: t('confirm'), cancel: t('cancel') }, 
    confirmProps: { color: "red" },
    onConfirm: () => dispatch(deleteBook(book.id)),
   });
@@ -64,13 +62,23 @@ export function BookCard({ book }: BookCardProps) {
     <Card.Section withBorder inheritPadding py="xs">
      <Group justify="space-between">
       <Badge color={statusColors[book.status]} variant="light">
-       {book.status}
+      {book.status}
       </Badge>
       <Group justify="space-between">
-       <ActionIcon variant="subtle" color="black" onClick={openEdit}>
+       <ActionIcon 
+        variant="subtle" 
+        color="black" 
+        onClick={openEdit} 
+        title={t('editBookTitle')}
+       >
         <IconEdit size={18} />
        </ActionIcon>
-       <ActionIcon variant="subtle" color="red" onClick={openDeleteModal}>
+       <ActionIcon 
+        variant="subtle" 
+        color="red" 
+        onClick={openDeleteModal}
+        title={t('deleteModalTitle')}
+       >
         <IconTrash size={18} />
        </ActionIcon>
       </Group>
@@ -97,11 +105,11 @@ export function BookCard({ book }: BookCardProps) {
      <Group
       onClick={openViewQuotes}
       style={{ cursor: "pointer" }}
-      title="Глядзець цытаты"
+      title={t('viewQuotesTitle', { title: book.title })}
      >
       <IconBook size={14} />
       <Text size="sm" fw={500}>
-       Цытат: {book.quotes.length}
+       {t('quotes')}: {book.quotes.length}
       </Text>
      </Group>
 
@@ -110,7 +118,7 @@ export function BookCard({ book }: BookCardProps) {
        variant="subtle"
        color="blue"
        onClick={openViewQuotes}
-       title="Глядзець цытаты"
+       title={t('viewQuotesTitle', { title: '' }).replace(' «»', '')}
       >
        <IconEye size={18} />
       </ActionIcon>
@@ -118,7 +126,7 @@ export function BookCard({ book }: BookCardProps) {
        variant="subtle"
        color="blue"
        onClick={openAddQuote}
-       title="Дадаць цытату"
+       title={t('addQuoteTitle')}
       >
        <IconPlus size={18} />
       </ActionIcon>
@@ -126,7 +134,6 @@ export function BookCard({ book }: BookCardProps) {
     </Group>
    </Card>
 
-   
    <EditBookModal opened={editOpened} onClose={closeEdit} book={book} />
    <AddQuoteModal
     opened={addQuoteOpened}

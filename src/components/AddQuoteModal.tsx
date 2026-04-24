@@ -1,5 +1,6 @@
 import { Modal, Textarea, TextInput, Button, Stack } from '@mantine/core';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next'; 
 import { useAppDispatch } from '../store/hooks';
 import { addQuote } from '../store/bookSlice';
 
@@ -10,6 +11,7 @@ interface AddQuoteModalProps {
 }
 
 export const AddQuoteModal = ({ opened, onClose, bookId }: AddQuoteModalProps) => {
+  const { t } = useTranslation(); 
   const dispatch = useAppDispatch();
   const [text, setText] = useState('');
   const [page, setPage] = useState('');
@@ -24,24 +26,32 @@ export const AddQuoteModal = ({ opened, onClose, bookId }: AddQuoteModalProps) =
   };
 
   return (
-    <Modal opened={opened} onClose={onClose} title="Дадаць цытату" centered>
+    <Modal 
+      opened={opened} 
+      onClose={onClose} 
+      title={t('addQuoteTitle')}
+      centered
+    >
       <Stack>
         <Textarea
-          label="Тэкст цытаты"
-          placeholder="Напішыце тое, што вас зачапіла..."
+          label={t('quoteTextLabel')} 
+          placeholder={t('quoteTextPlaceholder')} 
           minRows={3}
           value={text}
           onChange={(e) => setText(e.currentTarget.value)}
           required
         />
         <TextInput
-          label="Старонка"
-          placeholder="Напрыклад, 142"
+          label={t('quotePageLabel')} 
+          placeholder={t('quotePagePlaceholder')} 
           value={page}
           onChange={(e) => setPage(e.currentTarget.value)}
         />
-        <Button onClick={handleSave} fullWidth>Захаваць</Button>
+        <Button onClick={handleSave} fullWidth>
+          {t('saveQuoteBtn')} 
+        </Button>
       </Stack>
     </Modal>
   );
 }
+

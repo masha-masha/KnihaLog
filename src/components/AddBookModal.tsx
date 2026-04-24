@@ -1,5 +1,6 @@
 import { Modal, TextInput, Button, Stack, Select, Rating, Text } from '@mantine/core';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next'; 
 import { useAppDispatch } from '../store/hooks';
 import { addBook } from '../store/bookSlice';
 import type { BookStatus } from '../types/book';
@@ -10,7 +11,9 @@ interface AddBookModalProps {
 }
 
 export function AddBookModal({ opened, onClose }: AddBookModalProps) {
+  const { t } = useTranslation(); 
   const dispatch = useAppDispatch();
+
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [status, setStatus] = useState<BookStatus>('planned');
@@ -28,44 +31,66 @@ export function AddBookModal({ opened, onClose }: AddBookModalProps) {
         notes: ''
       }));
       onClose();
-      setTitle(''); setAuthor(''); setRating(0);
+      setTitle(''); 
+      setAuthor(''); 
+      setRating(0);
     }
   };
 
   return (
-    <Modal opened={opened} onClose={onClose} title="Дадаць новую кнігу" centered>
+    <Modal 
+      opened={opened} 
+      onClose={onClose} 
+      title={t('addBook')} 
+      centered
+    >
       <Stack>
-        <TextInput label="Назва кнігі" placeholder="Напрыклад, Каласы пад сярпом тваім" required value={title} onChange={(e) => setTitle(e.currentTarget.value)} />
-        <TextInput label="Аўтар" placeholder="Уладзімір Караткевіч" required value={author} onChange={(e) => setAuthor(e.currentTarget.value)} />
+        <TextInput 
+          label={t('bookTitleLabel')} 
+          placeholder={t('bookTitlePlaceholder')} 
+          required 
+          value={title} 
+          onChange={(e) => setTitle(e.currentTarget.value)} 
+        />
+        
+        <TextInput 
+          label={t('authorLabel')} 
+          placeholder={t('authorPlaceholder')} 
+          required 
+          value={author} 
+          onChange={(e) => setAuthor(e.currentTarget.value)} 
+        />
         
         <Select 
-          label="Статус" 
+          label={t('statusLabel')} 
           data={[
-            { value: 'planned', label: 'Хачу прачытаць' },
-            { value: 'reading', label: 'Чытаю зараз' },
-            { value: 'finished', label: 'Прачытана' },
+            { value: 'planned', label: t('filterPlanned') },
+            { value: 'reading', label: t('filterReading') },
+            { value: 'finished', label: t('filterFinished') },
           ]}
           value={status}
           onChange={(val) => setStatus(val as BookStatus)}
         />
 
         <Select 
-          label="Мова" 
+          label={t('languageLabel')} 
           data={[
-            { value: 'be', label: 'Беларуская' },
-            { value: 'en', label: 'English' },
-            { value: 'ru', label: 'Русский' },
+            { value: 'be', label: t('langBe') },
+            { value: 'en', label: t('langEn') },
+            { value: 'ru', label: t('langRu') },
           ]}
           value={language}
           onChange={(val) => setLanguage(val || 'be')}
         />
 
         <Stack gap={5}>
-          <Text size="sm" fw={500}>Твая адзенка</Text>
+          <Text size="sm" fw={500}>{t('ratingLabel')}</Text>
           <Rating value={rating} onChange={setRating} size="lg" />
         </Stack>
 
-        <Button onClick={handleSave} fullWidth mt="md">Захаваць у дзённік</Button>
+        <Button onClick={handleSave} fullWidth mt="md">
+          {t('saveBtn')}
+        </Button>
       </Stack>
     </Modal>
   );

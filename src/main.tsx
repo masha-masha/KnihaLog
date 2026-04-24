@@ -6,6 +6,7 @@ import { ModalsProvider } from "@mantine/modals";
 import "@mantine/core/styles.css";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import './i18n'; 
 
 const theme = createTheme({
  fontFamily: "Courier New",
