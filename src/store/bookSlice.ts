@@ -57,13 +57,29 @@ const bookSlice = createSlice({
                 state.books[index] = action.payload;
             }
         },
-         setFilter: (state, action: PayloadAction<BooksFilter>) => {
+        setFilter: (state, action: PayloadAction<BooksFilter>) => {
             state.filter = action.payload;
+        },
+        deleteQuote: (state, action: PayloadAction<{ bookId: string; quoteId: string }>) => {
+            const book = state.books.find(b => b.id === action.payload.bookId);
+            if (book) {
+                book.quotes = book.quotes.filter(q => q.id !== action.payload.quoteId);
+            }
+        },
+        updateQuote: (state, action: PayloadAction<{ bookId: string; quoteId: string; text: string; page?: string }>) => {
+            const book = state.books.find(b => b.id === action.payload.bookId);
+            if (book) {
+                const quote = book.quotes.find(q => q.id === action.payload.quoteId);
+                if (quote) {
+                    quote.text = action.payload.text;
+                    quote.page = action.payload.page;
+                }
+            }
         },
     }
 
 });
 
-export const { addBook, updateBook, addQuote, deleteBook, setFilter } = bookSlice.actions;
+export const { addBook, updateBook, addQuote, deleteBook, setFilter, deleteQuote, updateQuote } = bookSlice.actions;
 export default bookSlice.reducer;
 

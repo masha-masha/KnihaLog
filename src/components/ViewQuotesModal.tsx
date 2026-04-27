@@ -7,10 +7,13 @@ import {
  Blockquote,
  Button,
  Flex,
+ ActionIcon,
 } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import type { Book } from "../types/book";
-import { IconPlus } from "@tabler/icons-react";
+import { IconPlus, IconTrash } from "@tabler/icons-react";
+import { useAppDispatch } from "../store/hooks";
+import { deleteQuote } from "../store/bookSlice";
 
 interface ViewQuotesModalProps {
  opened: boolean;
@@ -26,6 +29,8 @@ export function ViewQuotesModal({
  openAddQuote,
 }: ViewQuotesModalProps) {
  const { t, i18n } = useTranslation();
+
+ const dispatch = useAppDispatch();
 
  const handleSwitchOpenModal = () => {
   onClose();
@@ -58,6 +63,17 @@ export function ViewQuotesModal({
           i18n.language === "be" ? "be-BY" : i18n.language,
          )}
         </Text>
+        <Flex justify="flex-end">
+         <ActionIcon
+          color="red"
+          variant="subtle"
+          onClick={() =>
+           dispatch(deleteQuote({ bookId: book.id, quoteId: quote.id }))
+          }
+         >
+          <IconTrash size={16} />
+         </ActionIcon>
+        </Flex>
        </Paper>
       ))
      ) : (
@@ -68,7 +84,14 @@ export function ViewQuotesModal({
       </Flex>
      )}
      <Flex justify="center" mt="md">
-      <Button leftSection={<IconPlus size={18} />}onClick={handleSwitchOpenModal} maw="400px" fullWidth radius="lg"  variant="light">
+      <Button
+       leftSection={<IconPlus size={18} />}
+       onClick={handleSwitchOpenModal}
+       maw="400px"
+       fullWidth
+       radius="lg"
+       variant="light"
+      >
        {t("addQuote")}
       </Button>
      </Flex>
