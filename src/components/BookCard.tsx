@@ -144,6 +144,7 @@ export function BookCard({ book }: BookCardProps) {
     opened={viewQuotesOpened}
     onClose={closeViewQuotes}
     book={book}
+    openAddQuote={openAddQuote}
    />
   </>
  );
