@@ -51,6 +51,8 @@ i18n
           quotePageLabel: 'Старонка',
           quotePagePlaceholder: 'Напрыклад, 142',
           saveQuoteBtn: 'Захаваць',
+          author: 'Аўтар: Маша.Б',
+          source: 'Зыходны код'
         }
       },
       ru: {
@@ -92,6 +94,8 @@ i18n
           quotePageLabel: 'Страница',
           quotePagePlaceholder: 'Например, 142',
           saveQuoteBtn: 'Сохранить',
+          author: 'Автор - Маша.Б',
+          source: 'Исходный ход'
         }
       },
       en: {
@@ -133,6 +137,8 @@ i18n
           quotePageLabel: 'Page',
           quotePagePlaceholder: 'e.g. 142',
           saveQuoteBtn: 'Save',
+          author: 'Author: Masha.B',
+          source: 'Source code'
         }
       }
     }
