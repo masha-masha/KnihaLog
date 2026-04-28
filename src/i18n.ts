@@ -34,7 +34,7 @@ i18n
           filterPlanned: 'Хачу прачытаць',
           quotes: 'Цытат',
           deleteModalTitle: 'Выдаліць кнігу?',
-          deleteModalText: 'Вы сапраўды хочаце выдаліць кнігу «{{title}}»?',
+          deleteModalText: 'Вы сапраўды хочаце выдаліць кнігу «{{title}}»? Гэта дзеянне немагчыма будзе адмяніць.',
           confirm: 'Так',
           cancel: 'Адмена',
           editBookTitle: 'Рэдагаваць кнігу',
@@ -53,7 +53,9 @@ i18n
           saveQuoteBtn: 'Захаваць',
           author: 'Аўтар: Маша.Б',
           source: 'Зыходны код',
-          addQuote: 'Дадаць цытату'
+          addQuote: 'Дадаць цытату',
+          deleteQuoteTitle: 'Выдаліць цытату?',
+          deleteQuoteText: 'Вы сапраўды хочаце выдаліць гэту цытату? Гэта дзеянне немагчыма будзе адмяніць.'
         }
       },
       ru: {
@@ -97,7 +99,9 @@ i18n
           saveQuoteBtn: 'Сохранить',
           author: 'Автор - Маша.Б',
           source: 'Исходный ход',
-          addQuote: 'Добавить цитату'
+          addQuote: 'Добавить цитату',
+          deleteQuoteTitle: 'Удалить цитату?',
+          deleteQuoteText: 'Вы уверены, что хотите удалить эту цитату? Это действие необратимо.'
         }
       },
       en: {
@@ -141,7 +145,9 @@ i18n
           saveQuoteBtn: 'Save',
           author: 'Author: Masha.B',
           source: 'Source code',
-          addQuote: 'Add quote'
+          addQuote: 'Add quote',
+          deleteQuoteTitle: 'Delete quote?',
+          deleteQuoteText: 'Are you sure you want to delete this quote? This action cannot be undone.'
         }
       }
     }
