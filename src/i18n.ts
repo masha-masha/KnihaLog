@@ -55,7 +55,8 @@ i18n
           source: 'Зыходны код',
           addQuote: 'Дадаць цытату',
           deleteQuoteTitle: 'Выдаліць цытату?',
-          deleteQuoteText: 'Вы сапраўды хочаце выдаліць гэту цытату? Гэта дзеянне немагчыма будзе адмяніць.'
+          deleteQuoteText: 'Вы сапраўды хочаце выдаліць гэту цытату? Гэта дзеянне немагчыма будзе адмяніць.',
+          quoteStatusLabel: 'Настрой'
         }
       },
       ru: {
@@ -101,7 +102,8 @@ i18n
           source: 'Исходный ход',
           addQuote: 'Добавить цитату',
           deleteQuoteTitle: 'Удалить цитату?',
-          deleteQuoteText: 'Вы уверены, что хотите удалить эту цитату? Это действие необратимо.'
+          deleteQuoteText: 'Вы уверены, что хотите удалить эту цитату? Это действие необратимо.',
+          quoteStatusLabel: "Настроение"
         }
       },
       en: {
@@ -147,7 +149,8 @@ i18n
           source: 'Source code',
           addQuote: 'Add quote',
           deleteQuoteTitle: 'Delete quote?',
-          deleteQuoteText: 'Are you sure you want to delete this quote? This action cannot be undone.'
+          deleteQuoteText: 'Are you sure you want to delete this quote? This action cannot be undone.',
+          quoteStatusLabel: 'Mood'
         }
       }
     }

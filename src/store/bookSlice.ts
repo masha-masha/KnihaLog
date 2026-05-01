@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Book } from '../types/book';
+import type { Book, QuoteStatus } from '../types/book';
 
 export type BooksFilter = "all" | "finished" | "planned" | "reading";
 
@@ -37,7 +37,7 @@ const bookSlice = createSlice({
                 quotes: [],
             });
         },
-        addQuote: (state, action: PayloadAction<{ bookId: string; text: string; page?: string }>) => {
+        addQuote: (state, action: PayloadAction<{ bookId: string; text: string; page?: string, status: QuoteStatus }>) => {
             const book = state.books.find(b => b.id === action.payload.bookId);
             if (book) {
                 book.quotes.push({
@@ -45,6 +45,7 @@ const bookSlice = createSlice({
                     text: action.payload.text,
                     page: action.payload.page,
                     dateAdded: new Date().toISOString(),
+                    status: action.payload.status
                 });
             }
         },
@@ -66,13 +67,14 @@ const bookSlice = createSlice({
                 book.quotes = book.quotes.filter(q => q.id !== action.payload.quoteId);
             }
         },
-        updateQuote: (state, action: PayloadAction<{ bookId: string; quoteId: string; text: string; page?: string }>) => {
+        updateQuote: (state, action: PayloadAction<{ bookId: string; quoteId: string; text: string; page?: string, status: QuoteStatus }>) => {
             const book = state.books.find(b => b.id === action.payload.bookId);
             if (book) {
                 const quote = book.quotes.find(q => q.id === action.payload.quoteId);
                 if (quote) {
                     quote.text = action.payload.text;
                     quote.page = action.payload.page;
+                    quote.status = action.payload.status
                 }
             }
         },

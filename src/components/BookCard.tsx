@@ -32,6 +32,8 @@ export function BookCard({ book }: BookCardProps) {
  const { t } = useTranslation(); 
  const dispatch = useAppDispatch();
 
+ console.log(book);
+
  const [editOpened, { open: openEdit, close: closeEdit }] = useDisclosure(false);
  const [addQuoteOpened, { open: openAddQuote, close: closeAddQuote }] = useDisclosure(false);
  const [viewQuotesOpened, { open: openViewQuotes, close: closeViewQuotes }] = useDisclosure(false);
