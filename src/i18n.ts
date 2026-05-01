@@ -56,7 +56,10 @@ i18n
           addQuote: 'Дадаць цытату',
           deleteQuoteTitle: 'Выдаліць цытату?',
           deleteQuoteText: 'Вы сапраўды хочаце выдаліць гэту цытату? Гэта дзеянне немагчыма будзе адмяніць.',
-          quoteStatusLabel: 'Настрой'
+          quoteStatusLabel: 'Настрой',
+          filterFunny: 'Вясёлыя',
+          filterSad: 'Сумныя',
+          filterNeutral: 'Нейтральныя'
         }
       },
       ru: {
@@ -103,7 +106,10 @@ i18n
           addQuote: 'Добавить цитату',
           deleteQuoteTitle: 'Удалить цитату?',
           deleteQuoteText: 'Вы уверены, что хотите удалить эту цитату? Это действие необратимо.',
-          quoteStatusLabel: "Настроение"
+          quoteStatusLabel: 'Настроение',
+          filterFunny: 'Веселые',
+          filterSad: 'Грустные',
+          filterNeutral: 'Нейтральные'
         }
       },
       en: {
@@ -150,7 +156,10 @@ i18n
           addQuote: 'Add quote',
           deleteQuoteTitle: 'Delete quote?',
           deleteQuoteText: 'Are you sure you want to delete this quote? This action cannot be undone.',
-          quoteStatusLabel: 'Mood'
+          quoteStatusLabel: 'Mood',
+          filterFunny: 'Happy',
+          filterSad: 'Sad ',
+          filterNeutral: 'Neutral'
         }
       }
     }

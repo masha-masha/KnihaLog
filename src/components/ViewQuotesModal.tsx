@@ -12,6 +12,7 @@ import {
  TextInput,
  Group,
  Box,
+ SegmentedControl
 } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import type { Book, Quote } from "../types/book";
@@ -25,8 +26,8 @@ import {
  IconMoodSad,
  IconMoodNeutral,
 } from "@tabler/icons-react";
-import { useAppDispatch } from "../store/hooks";
-import { deleteQuote, updateQuote } from "../store/bookSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { deleteQuote, updateQuote, setQuotesFilter, type QuoteFilter } from "../store/bookSlice";
 import { modals } from "@mantine/modals";
 import { useState } from "react";
 
@@ -114,6 +115,15 @@ export function ViewQuotesModal({
    onConfirm: () => dispatch(deleteQuote({ bookId: book.id, quoteId })),
   });
 
+ const currentFilter = useAppSelector((state) => state.books.quotesFilter)
+
+ const filteredQuotes = book.quotes.filter((quote) => {
+  if (currentFilter === "funny") return quote.status === "funny";
+  if (currentFilter === "sad") return quote.status === "sad";
+  if (currentFilter === "neutral") return quote.status === "neutral";
+  return true;
+ });
+
  return (
   <Modal
    opened={opened}
@@ -123,9 +133,22 @@ export function ViewQuotesModal({
    centered
   >
    <ScrollArea h={400} offsetScrollbars>
+
+    <SegmentedControl
+          fullWidth
+          value={currentFilter}
+          onChange={(val) => dispatch(setQuotesFilter(val as QuoteFilter))}
+          data={[
+           { label: t('filterAll'), value: "all" },
+           { label: t('filterFunny'), value: "funny" },
+           { label: t('filterSad'), value: "sad" },
+           { label: t('filterNeutral'), value: "neutral" },
+          ]}
+         />
+    
     <Stack gap="md">
-     {book.quotes.length > 0 ? (
-      book.quotes.map((quote) => (
+     {filteredQuotes.length > 0 ? (
+      filteredQuotes.map((quote) => (
        <Paper
         key={quote.id}
         withBorder
